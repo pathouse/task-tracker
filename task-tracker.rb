@@ -1,10 +1,3 @@
-#def day_start
-	#`gedit Desktop/rad.txt Desktop/tracktivity.txt`
-	#`firefox http://www.hulu.com`
-	
-#end
-
-
 #Initialize the Activity Tracking File
 def html_init
 	#If the file doesn't yet exist, build it
