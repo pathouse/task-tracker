@@ -1,0 +1,46 @@
+#title {
+	text-align: center;
+	margin: 0em 12em 0em;
+	padding: .5em;
+	box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+#title h1{
+	font-family: sans-serif;
+	color: #2d496f;
+}
+
+#title p{
+	color: black;
+}
+
+.activity{
+	width: 60%;
+	margin: 0em 10em 0em;
+}
+
+.activity p{
+	background-color: #dbe4ec;
+}				
+				
+.progbar {
+	background-color: black;
+	border-radius: 13px;
+	padding: 3px;
+}
+
+.progbar div{
+	font-family: sans-serif;
+	color: white;
+	text-align: center;
+	background-color: orange;
+	height: 20px;
+	border-radius: 10px;
+}
+ 
+		#learn-python-the-hard-way-progbar div {
+			width: 11%;
+		} 
+		#ruby-koans-progbar div {
+			width: 55%;
+		}
