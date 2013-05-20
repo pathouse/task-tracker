@@ -38,6 +38,9 @@
 	border-radius: 10px;
 }
  
+		#ruby-monk-progbar div {
+			width: 15%;
+		} 
 		#learn-python-the-hard-way-progbar div {
 			width: 11%;
 		} 
