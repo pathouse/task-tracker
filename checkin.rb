@@ -57,7 +57,7 @@ def task_checkin(task_name, description)
 	checkin_string = "#{description},#{dt_string}"
 	#and update the file with it - open file with "a" to append
 	update = File.open(task_data_path, "a") do |up|
-		up.print checkin_string
+		up.puts checkin_string
 	end #end do, close file
 	#return 0 to indicate success
 	0
@@ -74,8 +74,9 @@ def start_checkin
 	#and now we'll go to work...
 	result = task_checkin(t_name, t_desc)
 	if result == 0
-		puts "Your task has been successfully updated."
+		puts "Your task has been successfully updated." 
 	end
 end	
 
 start_checkin
+

@@ -3,6 +3,15 @@
 #
 
 
+def wipe_n_rebuild
+	#wipe and rebuild the tracking file
+	cleanup = File.join(Dir.getwd,'cleanup.rb')
+	load cleanup
+	build = File.join(Dir.getwd,'task-tracker.rb')
+	load build
+end
+
+
 #main method control panel
 def control_panel
 	#initialize choice as 0
@@ -12,8 +21,8 @@ def control_panel
 		#Let's tell the user what their options are...
 		puts "OPTIONS:"
 		puts "1. Open Tracking File"
-		puts "2. Check-in to a task."
-		puts "3. Refresh Tracking File"
+		puts "2. Check-in to a Task."
+		puts "3. Manually Refresh Tracking File"
 		puts "4. Exit"
 		#now prompt for input
 		choice = gets.chomp.to_i
@@ -26,12 +35,10 @@ def control_panel
 				#load and run checkin.rb
 				path = File.join(Dir.getwd,'checkin.rb')
 				load path
+				#now wipe and rebuild file
+				wipe_n_rebuild
 			when choice == 3
-				#wipe and rebuild the tracking file
-				cleanup = File.join(Dir.getwd,'cleanup.rb')
-				load cleanup
-				build = File.join(Dir.getwd,'task-tracker.rb')
-				load build
+				wipe_n_rebuild
 			when choice == 4
 				puts "Adios muchacho(a)."
 		end #end case
