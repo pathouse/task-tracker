@@ -177,8 +177,6 @@ def startup
 	#only after the HTML is initialized	
 	css_init
 	html_init
-
-	`firefox tracktivity.html`
 end
 
 startup
