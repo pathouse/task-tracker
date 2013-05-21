@@ -69,12 +69,11 @@ def get_data_files
 	all_files = Dir['*.csv']
 	#let's change the Dir back to the home dir
 	Dir.chdir("..")
-	#let's start the bidding at 0
-	count = 0
-	#and loop through that array
-	while count < all_files.size
+	
+	#and through that array
+	iter = all_files.each do |current_file|
 		#Extract the data from the file
-		task_data = extract_task_data(all_files[count])
+		task_data = extract_task_data(current_file)
 		#pass the extracted data to the HTML formatter
 		#first, let's take out the name and the entries
 		this_name = task_data[0]
@@ -91,9 +90,7 @@ def get_data_files
 		big_activity_string << this_html
 		#update the CSS using name and percent
 		update_css(this_name,this_percent_int)
-		#increment the count
-		count += 1
-	end
+	end #end do
 	#and finally, return the string with all of the html
 	big_activity_string
 end #end get_data_files
@@ -138,14 +135,10 @@ def format_data(name,entries,percent)
 	html_name = name.downcase.split.join('-')
 	result_html = "<div class='activity'><h2>#{name}</h2><div id='#{html_name}-progbar' class='progbar'><div>#{percent}%</div></div><br /><h3>Activity Entries:</h3>"
 	#now we're going to loop through the entries and append them as paragraphs
-	#fire up a counter
-	count = 0
-	while count < entries.size
-		entry = entries[count].join(" - ")
-		result_html << "<p>#{entry}</p>"
-		#update the count
-		count += 1
-	end
+	iter = entries.each do |entry|
+		this_entry = entry.join(" - ")
+		result_html << "<p>#{this_entry}</p>"
+	end #end do
 	#close up that HTML 
 	result_html << "</div><br /><br />"
 	#once again, don't know if this is redundant but... 

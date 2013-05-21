@@ -17,11 +17,9 @@ def find_task_data(task_name)
 	Dir.chdir("..")
 	#let's declare a variable that will soon hold the desired file...
 	task_file = nil
-	#fire up a counter
-	count = 0
-	#and iterate...
-	while count < all_files.size
-		file_path = File.join("data",all_files[count])
+	#iterate
+	iter = all_files.each do |file|
+		file_path = File.join("data",file)
 		#we'll pop this file open to check the header info and see if the names match
 		check = File.open(file_path) do |ch|
 			header_info = ch.readline.split(',')
@@ -33,9 +31,7 @@ def find_task_data(task_name)
 				return task_file 
 			end 
 		end #end the do, close the file
-		#if we haven't found it yet, up the counter
-		count += 1
-	end #end while
+	end #end iter do
 	#if we made it this far, let's throw an error because that task doesn't exist
 	raise TaskFileError, "Task file cannot be found, make sure you entered the name correctly."
 end #and we're done
