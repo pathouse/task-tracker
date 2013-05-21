@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 #
 # Control Panel for my Task tracker 
 #
