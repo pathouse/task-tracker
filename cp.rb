@@ -36,9 +36,15 @@ def control_panel
 			when choice == 2
 				#load and run checkin.rb
 				path = File.join(Dir.getwd,'checkin.rb')
-				load path
+				success = true
+				begin				
+					load path
+				rescue TaskFileError => ex
+					puts ex.message
+					success = false
+				end	
 				#now wipe and rebuild file
-				wipe_n_rebuild
+				if success then wipe_n_rebuild end
 			when choice == 3
 				wipe_n_rebuild
 			when choice == 4
