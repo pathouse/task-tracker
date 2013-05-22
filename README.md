@@ -19,5 +19,13 @@ Next Steps
 1. Ability to add new tasks
 2. Area for completed tasks w/ collapsible activity descriptions
 
+
+Screenshots
+-----------
+
+Can be found in the screenshots folder. 
+
+
 [1]: http://www.circleround.net/tldr/front/2013/05/20/my-first-ruby-project.html
 [2]: https://addons.mozilla.org/en-US/firefox/addon/auto-reload/
+
