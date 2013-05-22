@@ -6,7 +6,8 @@ My first project of any scale in Ruby and my first programming project of any sc
 [This post][1] explains (almost) everything.
 
 
-*UPDATE - 5/20/2013
+Control
+-------
 
 Currently I control everything through the command line using cp.rb
 
@@ -16,8 +17,7 @@ Next Steps
 ----------
 
 1. Ability to add new tasks
-2. Side nav. panel w/ fixed position in the browser window
-3. Area for completed tasks w/ collapsible activity descriptions
+2. Area for completed tasks w/ collapsible activity descriptions
 
 [1]: http://www.circleround.net/tldr/front/2013/05/20/my-first-ruby-project.html
 [2]: https://addons.mozilla.org/en-US/firefox/addon/auto-reload/
