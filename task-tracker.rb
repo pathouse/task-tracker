@@ -7,6 +7,7 @@ def html_init
 		template_path = File.join(Dir.getwd,"templates")
 		header_path = File.join(template_path,"header.html")
 		footer_path = File.join(template_path,"footer.html")
+		nav_path = File.join(template_path,"fix-nav.html")
 		#open the header file	
 		file = File.open(header_path)
 		#store the contents as a string in header		
@@ -19,13 +20,19 @@ def html_init
 		footer = file.read
 		#close the file
 		file.close
+		#now get the navigation file up and running
+		nav_up = nav_init(nav_path)
 		#now let's get that data, format it, and use it as the body
 		body = get_data_files
+		#now finalize the nave and get the html as a string
+		nav = final_nav(nav_up)
 		#now create and write the new html file in the current directory
 		new_path = File.join(Dir.getwd, "tracktivity.html")
 		new_file = File.open(new_path, 'w') do |nf|
 			#first write the header
 			nf.puts header
+			#then the nav
+			nf.puts nav
 			#then the body
 			nf.puts body
 			#then the footer
@@ -133,7 +140,7 @@ def format_data(name,entries,percent)
 	#it's going to result in a string of HTML
 	#first let's make the name into a useful id
 	html_name = name.downcase.split.join('-')
-	result_html = "<div class='activity'><h2>#{name}</h2><div id='#{html_name}-progbar' class='progbar'><div>#{percent}%</div></div><br /><h3>Activity Entries:</h3>"
+	result_html = "<div class='activity'><h2 id=#{html_name}>#{name}</h2><div id='#{html_name}-progbar' class='progbar'><div>#{percent}%</div></div><br /><h3>Activity Entries:</h3>"
 	#now we're going to loop through the entries and append them as paragraphs
 	iter = entries.each do |entry|
 		this_entry = entry.join(" - ")
@@ -141,6 +148,8 @@ def format_data(name,entries,percent)
 	end #end do
 	#close up that HTML 
 	result_html << "</div><br /><br />"
+	#send the name to update_nav
+	updn = update_nav(name)
 	#once again, don't know if this is redundant but... 
 	result_html
 end
@@ -162,6 +171,43 @@ def update_css(name, percent)
 	end #end do, close file
 end #end update_css
 	
+
+def nav_init(path)
+	#first, load in the template
+	nav_file = File.open(path)
+	nav_str = nav_file.read
+	nav_file.close
+	#now start the nav file
+	new_nav_path = File.join(Dir.getwd,"navigation.html")
+	#write the template to it	
+	write = File.open(new_nav_path,"w") do |w|
+		w.print nav_str
+	end
+	new_nav_path
+end
+
+#this method updates the navigation with links
+#to each of the activities present
+def update_nav(name)
+	full_name = name.downcase.split.join('-')
+	#open file to append
+	nav_path = File.join(Dir.getwd,"navigation.html")
+	nav_file = File.open(nav_path, "a") do |nav|
+		nav.puts "<li><a href='#{File.join(Dir.getwd,'tracktivity.html')}##{full_name}'>#{name}</a></li>"
+	end
+	0
+end
+
+#this method closes off the list and the div in the nav file and returns the HTML as a string
+def final_nav(path)
+	finalize = File.open(path, "a") do |f|
+		f.print "</ul></div>"
+	end
+	file = File.open(path)
+	html_str = file.read
+	file.close
+	html_str
+end
 
 
 def startup
