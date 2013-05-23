@@ -8,18 +8,12 @@ def html_init
 		header_path = File.join(template_path,"header.html")
 		footer_path = File.join(template_path,"footer.html")
 		nav_path = File.join(template_path,"fix-nav.html")
-		#open the header file	
-		file = File.open(header_path)
-		#store the contents as a string in header		
-		header = file.read
-		#close the file		
-		file.close
-		#open the footer file
-		file = File.open(footer_path)
-		#store the contents as a string in footer
-		footer = file.read
-		#close the file
-		file.close
+		#open the header file, read the contents into header, file auto-closes after block
+		header = ""	
+		file = File.open(header_path) {|f| header = f.read}
+		#open the footer file, read contents into footer, file auto-closes after block
+		footer = ""
+		file = File.open(footer_path) {|f| footer = f.read}
 		#now get the navigation file up and running
 		nav_up = nav_init(nav_path)
 		#now let's get that data, format it, and use it as the body
@@ -50,17 +44,13 @@ def css_init
 		#the base stylesheet is in the templates directory
 		template_path = File.join(Dir.getwd,"templates")
 		css_path = File.join(template_path, "style-base.css")
-		#open the file		
-		file = File.open(css_path)
-		#store the contents as a string in css		
-		css = file.read
-		#close the file		
-		file.close
+		#open the file, write the template to css, file auto-closes after block	
+		css = ""		
+		file = File.open(css_path) {|f| css = f.read}
 		#create the new file for writing, first establish path
 		new_path = File.join(Dir.getwd, "stylesheet.css")
-		new_file = File.open(new_path, 'w') do |nf|
-			nf.puts css
-		end #end the do, close the file
+		#open file, write CSS, file auto-closes after block
+		new_file = File.open(new_path, 'w')  {|nf| nf.puts css}
 	end #end unless
 end #end css_init
 
@@ -127,11 +117,11 @@ def extract_task_data(file_name)
 		#update entry_count		
 		entry_count += 1
 	end #this loop is ovvaaahhh!
+	#close the file
+	file.close
 	#now let's return all of this in one big array
 	#[0] = task name, [1] = activity array, [2] = entires, [3] = total sections
-	result_array = [task_name, activity_array, entry_count, section_count]
-	#I'm not sure if this is redundant but I'm going to put it here anyway
-	result_array
+	[task_name, activity_array, entry_count, section_count]
 end
 		
 #format the task data into HTML
@@ -166,23 +156,19 @@ def update_css(name, percent)
 	#get the path to the file
 	css_path = File.join(Dir.getwd, "stylesheet.css")
 	#open it up and append the update_string	
-	css_file = File.open(css_path, "a") do |cf|
-		cf.print update_string
-	end #end do, close file
+	css_file = File.open(css_path, "a")  {|cf| cf.print update_string}
 end #end update_css
 	
 
 def nav_init(path)
 	#first, load in the template
-	nav_file = File.open(path)
-	nav_str = nav_file.read
-	nav_file.close
+	nav_str = ""
+	nav_file = File.open(path) {|nf| nav_str = nf.read}
 	#now start the nav file
 	new_nav_path = File.join(Dir.getwd,"navigation.html")
 	#write the template to it	
-	write = File.open(new_nav_path,"w") do |w|
-		w.print nav_str
-	end
+	write = File.open(new_nav_path,"w") {|w| w.print nav_str}
+	#return new_nav_path
 	new_nav_path
 end
 
@@ -200,12 +186,9 @@ end
 
 #this method closes off the list and the div in the nav file and returns the HTML as a string
 def final_nav(path)
-	finalize = File.open(path, "a") do |f|
-		f.print "</ul></div>"
-	end
-	file = File.open(path)
-	html_str = file.read
-	file.close
+	finalize = File.open(path, "a") {|f| f.print "</ul></div>"}
+	html_str = ""	
+	file = File.open(path) {|f| html_str = f.read}
 	html_str
 end
 
