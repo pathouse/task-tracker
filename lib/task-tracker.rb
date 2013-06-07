@@ -130,17 +130,22 @@ def format_data(name,entries,percent)
 	#it's going to result in a string of HTML
 	#first let's make the name into a useful id
 	html_name = name.downcase.split.join('-')
-	result_html = "<div class='activity'><h2 id=#{html_name}>#{name}</h2><div id='#{html_name}-progbar' class='progbar'><div>#{percent}%</div></div><br /><h3>Activity Entries:</h3>"
-	#now we're going to loop through the entries and append them as paragraphs
-	iter = entries.each do |entry|
-		this_entry = entry.join(" - ")
-		result_html << "<p>#{this_entry}</p>"
-	end #end do
-	#close up that HTML 
-	result_html << "</div><br /><br />"
+	unless percent == 100
+		result_html = "<div class='activity'><h2 id=#{html_name}>#{name}</h2><div id='#{html_name}-progbar' class='progbar'><div>#{percent}%</div></div><br /><h3>Activity Entries:</h3>"
+		#now we're going to loop through the entries and append them as paragraphs
+		iter = entries.each do |entry|
+			this_entry = entry.join(" - ")
+			result_html << "<p>#{this_entry}</p>"
+		end #end do
+		#close up that HTML 
+		result_html << "</div><br /><br />"
+	#for now, if the task is finished, we're not even going to write the activity entries.
+	else
+		result_html = "<div class='activity'><h2 id=#{html_name}>#{name}</h2><div id='#{html_name}-progbar' class='progbar'><div>#{percent}%</div></div></div><br /><br />"
+	end
 	#send the name to update_nav
 	updn = update_nav(name)
-	#once again, don't know if this is redundant but... 
+	#once again, don't know if this is redundant but.. 
 	result_html
 end
 
