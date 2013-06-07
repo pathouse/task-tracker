@@ -64,11 +64,14 @@
 }
  
 		#ruby-monk-progbar div {
-			width: 34%;
+			width: 38%;
+		} 
+		#rails-tutorial-progbar div {
+			width: 0%;
 		} 
 		#learn-python-the-hard-way-progbar div {
 			width: 11%;
 		} 
 		#ruby-koans-progbar div {
-			width: 55%;
+			width: 93%;
 		}

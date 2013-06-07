@@ -10,16 +10,17 @@ def find_task_data(task_name)
 	#first, let's format the name for comparison
 	task_name = task_name.downcase.split.join('-')
 	#now we're going to navigate to the data directory
-	Dir.chdir("data")
+	Dir.chdir("lib/data")
 	#let's pull all of the .csv files...
 	all_files = Dir['*.csv']
 	#pop back into the home directory
+	Dir.chdir("..")
 	Dir.chdir("..")
 	#let's declare a variable that will soon hold the desired file...
 	task_file = nil
 	#iterate
 	iter = all_files.each do |file|
-		file_path = File.join("data",file)
+		file_path = File.join("lib/data",file)
 		#we'll pop this file open to check the header info and see if the names match
 		check = File.open(file_path) do |ch|
 			header_info = ch.readline.split(',')
