@@ -38,7 +38,7 @@ def control_panel
 		case
 			when choice == 1
 				#open the tracking file in a new firefox tab
-				`firefox tracktivity.html`
+				`firefox tmp/tracktivity.html`
 			when choice == 2
 				#load and run checkin.rb
 				path = File.join(Dir.getwd,'lib/checkin.rb')

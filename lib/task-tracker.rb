@@ -1,7 +1,7 @@
 #Initialize the Activity Tracking File
 def html_init
 	#If the file doesn't yet exist, build it
-	unless File.exist?("tracktivity.html")
+	unless File.exist?("tmp/tracktivity.html")
 		#Building the file for the first time
 		#Accomplished by combining the header and footer HTML files in the templates directory		
 		template_path = File.join(Dir.getwd,"lib/templates")
@@ -21,7 +21,7 @@ def html_init
 		#now finalize the nave and get the html as a string
 		nav = final_nav(nav_up)
 		#now create and write the new html file in the current directory
-		new_path = File.join(Dir.getwd, "tracktivity.html")
+		new_path = File.join(Dir.getwd, "tmp/tracktivity.html")
 		new_file = File.open(new_path, 'w') do |nf|
 			#first write the header
 			nf.puts header
@@ -40,7 +40,7 @@ end #end html_init
 # prog_value = progress bar value on scale of 0 to 100
 def css_init
 	#If the file doesn't exist, build it.
-	unless File.exist?("stylesheet.css")
+	unless File.exist?("tmp/stylesheet.css")
 		#the base stylesheet is in the templates directory
 		template_path = File.join(Dir.getwd,"lib/templates")
 		css_path = File.join(template_path, "style-base.css")
@@ -48,7 +48,7 @@ def css_init
 		css = ""		
 		file = File.open(css_path) {|f| css = f.read}
 		#create the new file for writing, first establish path
-		new_path = File.join(Dir.getwd, "stylesheet.css")
+		new_path = File.join(Dir.getwd, "tmp/stylesheet.css")
 		#open file, write CSS, file auto-closes after block
 		new_file = File.open(new_path, 'w')  {|nf| nf.puts css}
 	end #end unless
@@ -159,7 +159,7 @@ def update_css(name, percent)
 			width: #{percent}%;
 		}}
 	#get the path to the file
-	css_path = File.join(Dir.getwd, "stylesheet.css")
+	css_path = File.join(Dir.getwd, "tmp/stylesheet.css")
 	#open it up and append the update_string	
 	css_file = File.open(css_path, "a")  {|cf| cf.print update_string}
 end #end update_css
@@ -170,7 +170,7 @@ def nav_init(path)
 	nav_str = ""
 	nav_file = File.open(path) {|nf| nav_str = nf.read}
 	#now start the nav file
-	new_nav_path = File.join(Dir.getwd,"navigation.html")
+	new_nav_path = File.join(Dir.getwd,"tmp/navigation.html")
 	#write the template to it	
 	write = File.open(new_nav_path,"w") {|w| w.print nav_str}
 	#return new_nav_path
@@ -182,9 +182,9 @@ end
 def update_nav(name)
 	full_name = name.downcase.split.join('-')
 	#open file to append
-	nav_path = File.join(Dir.getwd,"navigation.html")
+	nav_path = File.join(Dir.getwd,"tmp/navigation.html")
 	nav_file = File.open(nav_path, "a") do |nav|
-		nav.puts "<li><a href='#{File.join(Dir.getwd,'tracktivity.html')}##{full_name}'>#{name}</a></li>"
+		nav.puts "<li><a href='#{File.join(Dir.getwd,'tmp/tracktivity.html')}##{full_name}'>#{name}</a></li>"
 	end
 	0
 end

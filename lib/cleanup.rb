@@ -1,7 +1,7 @@
 def cleanup
-	html = File.join(Dir.getwd,"tracktivity.html")
-	css = File.join(Dir.getwd,"stylesheet.css")
-	nav = File.join(Dir.getwd,"navigation.html")
+	html = File.join(Dir.getwd,"tmp/tracktivity.html")
+	css = File.join(Dir.getwd,"tmp/stylesheet.css")
+	nav = File.join(Dir.getwd,"tmp/navigation.html")
 	unless !(File.exist?(html))
 		File.delete(html)
 	end
