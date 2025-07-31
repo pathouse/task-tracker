@@ -1,3 +1,7 @@
+NOTE: 
+This was a project I did when I was first learning how to code - before I knew anything about anything. I like keeping it around as a reminder of what it's like to be totally new at something. 
+
+
 task-tracker
 ============
 
